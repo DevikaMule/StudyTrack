@@ -53,7 +53,10 @@ StudyTrack is a clean, modern, and full-stack study management application desig
 
 ```text
 studytrack/
+├── .dockerignore
+├── docker-compose.yml             # Starts the frontend and backend containers
 ├── backend/
+│   ├── Dockerfile                 # Production backend image
 │   ├── data/
 │   │   └── store.js              # In-memory arrays (subjects, tasks, sessions)
 │   ├── controllers/
@@ -71,6 +74,8 @@ studytrack/
 │   ├── server.js                  # Express server entry point (Port 5000)
 │   └── package.json
 ├── frontend/
+│   ├── Dockerfile                 # Builds React and serves it with Nginx
+│   ├── nginx.conf                 # SPA routing configuration
 │   ├── src/
 │   │   ├── services/
 │   │   │   └── api.js             # Centralized Axios instance
@@ -132,13 +137,19 @@ The React frontend will be accessible at **`http://localhost:5173`**.
 
 ### Run with Docker
 
-From the project root, build and start both services with Docker Compose:
+Make sure Docker Desktop is running, then run this from the `studytrack` project root:
 
 ```bash
 docker compose up --build
 ```
 
-The React application will be available at **`http://localhost:5173`** and the API at **`http://localhost:5000`**. Stop the services with `Ctrl+C`, or run `docker compose down` from another terminal.
+The React application will be available at **`http://localhost:5173`**. The API is available at **`http://localhost:5000`**, with the health check at **`http://localhost:5000/api/health`**.
+
+The backend root endpoint at **`http://localhost:5000`** returns the API status and frontend URL. Stop the services with `Ctrl+C`, or run the following command from another terminal:
+
+```bash
+docker compose down
+```
 
 ---
 
@@ -146,6 +157,10 @@ The React application will be available at **`http://localhost:5173`** and the A
 
 ### Dashboard
 - `GET /api/dashboard` — Returns dynamic metrics summary
+
+### Health and status
+- `GET /` — Returns API status and the frontend URL
+- `GET /api/health` — Checks whether the API is operational
 
 ### Subjects
 - `GET /api/subjects` — Get all subjects
