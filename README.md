@@ -130,6 +130,16 @@ npm run dev
 
 The React frontend will be accessible at **`http://localhost:5173`**.
 
+### Run with Docker
+
+From the project root, build and start both services with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The React application will be available at **`http://localhost:5173`** and the API at **`http://localhost:5000`**. Stop the services with `Ctrl+C`, or run `docker compose down` from another terminal.
+
 ---
 
 ## 📡 REST API Endpoints

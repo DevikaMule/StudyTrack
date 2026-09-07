@@ -20,6 +20,14 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/sessions", sessionRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "StudyTrack API is running",
+    frontend: "http://localhost:5173"
+  });
+});
+
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   res.status(200).json({ success: true, message: "StudyTrack API is operational" });
